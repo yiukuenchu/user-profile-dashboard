@@ -1,12 +1,41 @@
-import React from "react"
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-export default function App() { 
-    return (
-        <div>
-            <h1 className="text-3xl font-bold underline">
-                Hello world!
-            </h1>
-        </div>
-    )
-    
+/** Import all components */
+import Username from './components/Username';
+import Register from './components/Register';
+import Profile from './components/Profile';
+import Password from './components/Password';
+import PageNotFound from './components/PageNotFound';
+
+/** root routes */
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Username></Username>,
+  },
+  {
+    path: '/register',
+    element: <Register></Register>,
+  },
+  {
+    path: '/password',
+    element: <Password></Password>,
+  },
+  {
+    path: '/profile',
+    element: <Profile></Profile>,
+  },
+  {
+    path: '*',
+    element: <PageNotFound></PageNotFound>,
+  },
+]);
+
+export default function App() {
+  return (
+    <main>
+      <RouterProvider router={router}></RouterProvider>
+    </main>
+  );
 }
