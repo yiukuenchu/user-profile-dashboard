@@ -109,7 +109,7 @@ export default function Profile() {
               </button>
             </div>
 
-            <div class="text-center py-4">
+            <div className="text-center py-4">
               <span className="text-gray-500">
                 Come back later?{' '}
                 <Link className="text-red-500" to="/">

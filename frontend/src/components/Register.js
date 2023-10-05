@@ -83,7 +83,7 @@ export default function Register() {
               </button>
             </div>
 
-            <div class="text-center py-4">
+            <div className="text-center py-4">
               <span className="text-gray-500">
                 Already register?{' '}
                 <Link className="text-red-500" to="/">
