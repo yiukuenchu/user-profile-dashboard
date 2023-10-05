@@ -6,7 +6,7 @@ const router = Router();
 
 /** POST */
 router.route('/register').post(controller.register);
-router.route('/auth').post((req, res) => res.end());
+router.route('/auth').post(controller.verifyUser, (req, res) => res.end());
 router.route('/login').post(controller.verifyUser, controller.login);
 
 /** GET */
