@@ -24,24 +24,23 @@ export async function register(req, res) {
 
     // check the existing user
     const existUsername = new Promise((resolve, reject) => {
-      UserModel.findOne({ username })
-        .then((err, user) => {
-          if (err) reject(new Error(err));
-          if (user) reject({ error: 'Please provide a unique username' });
-          resolve();
-        })
-        .catch((err) => reject({ error: 'Please use unique username' }));
+      UserModel.findOne({ username });
+      UserModel.findOne({ username }, function (err, user) {
+        if (err) reject(new Error(err));
+        if (user) reject({ error: 'Please use unique username' });
+
+        resolve();
+      });
     });
 
     // check the existing user
     const existEmail = new Promise((resolve, reject) => {
-      UserModel.findOne({ email })
-        .then((err, email) => {
-          if (err) reject(new Error(err));
-          if (email) reject({ error: 'Please provide a unique email' });
-          resolve();
-        })
-        .catch((err) => reject({ error: 'Please use unique email' }));
+      UserModel.findOne({ email }, function (err, email) {
+        if (err) reject(new Error(err));
+        if (email) reject({ error: 'Please use unique Email' });
+
+        resolve();
+      });
     });
 
     Promise.all([existUsername, existEmail])
@@ -93,9 +92,9 @@ export async function login(req, res) {
           .compare(password, user.password)
           .then((passwordCheck) => {
             if (!passwordCheck)
-              return res.status(400).send({ error: "Don't have password" });
+              return res.status(400).send({ error: "Don't have Password" });
 
-            // create JWT token
+            // create jwt token
             const token = jwt.sign(
               {
                 userId: user._id,
@@ -106,17 +105,17 @@ export async function login(req, res) {
             );
 
             return res.status(200).send({
-              msg: 'Login successful',
+              msg: 'Login Successful...!',
               username: user.username,
               token,
             });
           })
           .catch((error) => {
-            return res.status(400).send({ error: 'Password not match' });
+            return res.status(400).send({ error: 'Password does not Match' });
           });
       })
       .catch((error) => {
-        return res.status(404).send({ error: 'Username not found' });
+        return res.status(404).send({ error: 'Username not Found' });
       });
   } catch (error) {
     return res.status(500).send({ error });
@@ -125,10 +124,46 @@ export async function login(req, res) {
 
 /** GET getUser request */
 export async function getUser(req, res) {
-  res.json('getUser route');
+  const { username } = req.params;
+
+  try {
+    if (!username) return res.status(501).send({ error: 'Invalid Username' });
+
+    UserModel.findOne({ username }, function (err, user) {
+      if (err) return res.status(500).send({ err });
+      if (!user)
+        return res.status(501).send({ error: "Couldn't Find the User" });
+
+      /** remove password from user */
+      // mongoose return unnecessary data with object so convert it into json
+      const { password, ...rest } = Object.assign({}, user.toJSON());
+
+      return res.status(201).send(rest);
+    });
+  } catch (error) {
+    return res.status(404).send({ error: 'Cannot Find User Data' });
+  }
 }
 
 /** PUT editUser request */
 export async function editUser(req, res) {
-  res.json('editUser route');
+  try {
+    const id = req.query.id;
+    // const { userId } = req.user;
+
+    if (id) {
+      const body = req.body;
+
+      // update the data
+      UserModel.updateOne({ _id: id }, body, function (err, data) {
+        if (err) throw err;
+
+        return res.status(201).send({ msg: 'Record Updated...!' });
+      });
+    } else {
+      return res.status(401).send({ error: 'User Not Found...!' });
+    }
+  } catch (error) {
+    return res.status(401).send({ error });
+  }
 }
