@@ -105,7 +105,7 @@ export default function Profile() {
                 placeholder="Address"
               ></input>
               <button className={styles.btn} type="submit">
-                Register
+                Update
               </button>
             </div>
 
