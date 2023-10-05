@@ -146,16 +146,16 @@ export async function getUser(req, res) {
 }
 
 /** PUT editUser request */
-export async function editUser(req, res) {
+export async function edit(req, res) {
   try {
-    const id = req.query.id;
-    // const { userId } = req.user;
+    // const id = req.query.id;
+    const { userId } = req.user;
 
-    if (id) {
+    if (userId) {
       const body = req.body;
 
       // update the data
-      UserModel.updateOne({ _id: id }, body, function (err, data) {
+      UserModel.updateOne({ _id: userId }, body, function (err, data) {
         if (err) throw err;
 
         return res.status(201).send({ msg: 'Record Updated...!' });

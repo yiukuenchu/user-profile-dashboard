@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as controller from '../controllers/appController.js';
+import Authenticate from '../middleware/auth.js';
 
 const router = Router();
 
@@ -12,6 +13,6 @@ router.route('/login').post(controller.verifyUser, controller.login);
 router.route('/user/:username').get(controller.getUser);
 
 /** PUT */
-router.route('/edit').put(controller.editUser);
+router.route('/edit').put(Authenticate, controller.edit);
 
 export default router;
