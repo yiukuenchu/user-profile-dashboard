@@ -2,8 +2,8 @@
 
 This is a user profile dashboard application.
 
-![user_profile_dashboard_home-min](https://i.im.ge/2023/10/06/NekDmJ.user-profile-dashboard-home-min.png)
-![user_profile_dashboard_profile-min](https://i.im.ge/2023/10/06/Nekz7c.user-profile-dashboard-profile-min.png)
+[![user_profile_dashboard_home-min](https://i.im.ge/2023/10/06/Nezfuh.user-profile-dashboard-home-min.md.png)](https://im.ge/i/Nezfuh)
+[![user_profile_dashboard_profile-min](https://i.im.ge/2023/10/06/Nekz7c.user-profile-dashboard-profile-min.md.png)](https://im.ge/i/Nekz7c)
 
 It includes:
 - Backend API with Express and MongoDB
