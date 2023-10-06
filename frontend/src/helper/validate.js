@@ -42,7 +42,7 @@ function passwordVerify(error = {}, values) {
     error.password = toast.error('Wrong Password');
   } else if (values.password.length < 6) {
     error.password = toast.error(
-      'Password must be more than 6 characters long '
+      'Password must be more than 6 characters long'
     );
   }
 
