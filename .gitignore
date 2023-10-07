@@ -6,6 +6,7 @@ backend/node_modules
 backend/config.js
 frontend/.env
 backend/.env
+frontend/build
 /.pnp
 .pnp.js
 
